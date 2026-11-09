@@ -15,14 +15,14 @@ const subtotal = conta.itens.reduce((total, item) => total + item.preco * item.q
 const subtotalCentavos = Math.round(subtotal * 100);
 const gorjetaCentavos = Math.round(subtotalCentavos * conta.gorjeta / 100);
 const totalCentavos = subtotalCentavos + gorjetaCentavos;
+const Total = (totalCentavos / 100).toFixed(2)
 
 console.log(`Subtotal: R$ ${(subtotalCentavos / 100).toFixed(2)}`);
 console.log(`Gorjeta (${conta.gorjeta}%): R$ ${(gorjetaCentavos / 100).toFixed(2)}`);
-console.log(`Total: R$ ${(totalCentavos / 100).toFixed(2)}`);
+console.log(`Total: R$ ${Total}`);
+
 //console.log('subtotal:', subtotal.toFixed(2))
 // console.log(pc.bold('Racha-conta:'), conta.restaurante);
-
-
 
 
 // Unidades pedidas quantidades de todos os itens
@@ -33,3 +33,5 @@ console.log('Unidades pedidas: ', UnidadesPedidas)
 const filtro = conta.itens.filter(numero => numero.preco > 50);
 console.log('Itens acima de R$ 50: ',filtro.length)
 
+console.log(`Por pessoa: R$ ${(Total / 4).toFixed(2)}`)
+console.log(`Centavos que sobram: ${Math.round(Total % 4)}`)
