@@ -9,12 +9,23 @@ console.log('Pessoas na mesa:', conta.pessoas);
 console.log('Itens na conta:', conta.itens.length);
 console.table(conta.itens);
 
+
 const subtotal = conta.itens.reduce((total, item) => total + item.preco * item.quantidade, 0);
-console.log('subtotal:', subtotal.toFixed(2))
+
+const subtotalCentavos = Math.round(subtotal * 100);
+const gorjetaCentavos = Math.round(subtotalCentavos * conta.gorjeta / 100);
+const totalCentavos = subtotalCentavos + gorjetaCentavos;
+
+console.log(`Subtotal: R$ ${(subtotalCentavos / 100).toFixed(2)}`);
+console.log(`Gorjeta (${conta.gorjeta}%): R$ ${(gorjetaCentavos / 100).toFixed(2)}`);
+console.log(`Total: R$ ${(totalCentavos / 100).toFixed(2)}`);
+//console.log('subtotal:', subtotal.toFixed(2))
 // console.log(pc.bold('Racha-conta:'), conta.restaurante);
 
 
-// Unidades pedidas auntidades de todso os itens
+
+
+// Unidades pedidas quantidades de todos os itens
 const UnidadesPedidas = conta.itens.reduce((total, item) => total + item.quantidade, 0);
 console.log('Unidades pedidas: ', UnidadesPedidas)
 
