@@ -7,5 +7,13 @@ export function calcularGorjeta(subtotal, percentual = 10) {
 }
 
 export function formatarReais(centavos){
-    return `R$ ${(centavos / 100).toFixed(2)}`
+    return `R$ ${(centavos / 100).toFixed(2).replace('.', ',')}`
+}
+
+export function lerValor(texto) {
+  let limpo = texto.trim();
+  limpo = limpo.replace('R$', '');
+  limpo = limpo.trim();
+  limpo = limpo.replace(',', '.');
+  return paraCentavos(Number(limpo));
 }

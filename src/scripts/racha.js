@@ -4,6 +4,7 @@ import {
   paraCentavos,
   calcularGorjeta,
   formatarReais,
+  lerValor
 } from "../regras/conta.js";
 
 const texto = fs.readFileSync("src/data/conta.json", "utf-8");
@@ -18,14 +19,18 @@ console.log("Pessoas na mesa:", conta.pessoas);
 console.log("Itens na conta:", conta.itens.length);
 console.table(conta.itens);
 
-const subtotalCentavos = paraCentavos(subtotal);
+let subtotalCentavos = paraCentavos(subtotal);
+if (process.argv[2]) {
+  subtotalCentavos = lerValor(process.argv[2]);
+}
+
 const gorjetaCentavos = calcularGorjeta(subtotalCentavos, conta.gorjeta);
 const totalCentavos = subtotalCentavos + gorjetaCentavos;
 const Total = formatarReais(totalCentavos);
 
-console.log(`Subtotal: ${formatarReais(totalCentavos)}`);
-console.log(`Gorjeta (${conta.gorjeta}%): ${formatarReais(totalCentavos)}`);
-console.log(`Total: R$ ${Total}`);
+console.log(`Subtotal: ${formatarReais(subtotalCentavos)}`);
+console.log(`Gorjeta (${conta.gorjeta}%): ${formatarReais(gorjetaCentavos)}`);
+console.log(`Total: ${Total}`);
 
 //console.log('subtotal:', subtotal.toFixed(2))
 // console.log(pc.bold('Racha-conta:'), conta.restaurante);

@@ -1,4 +1,4 @@
-import { calcularGorjeta, paraCentavos, formatarReais } from './conta.js';
+import { calcularGorjeta, paraCentavos, formatarReais, lerValor } from './conta.js';
 
 test('gorjeta de 10% sobre R$ 187,50 é R$ 18,75', () => {
   expect(calcularGorjeta(18750, 10)).toBe(1875);
@@ -29,8 +29,19 @@ test('paraCentavos (%d, %d) dá i%', () => {
 });
 
 test.each([
-  [18750, 'R$ 187.50'],
-  [5, 'R$ 0.05'],
+  [18750, 'R$ 187,50'],
+  [5, 'R$ 0,05'],
 ])('formatarReais %i dá %s', (centavos, esperado) => {
   expect(formatarReais(centavos, esperado)).toBe(esperado);
+});
+
+test.each([
+  ['187,50', 18750],
+  ['R$ 187,50', 18750],
+  ['R$187,50', 18750],
+  ['  187,5 ', 18750],
+  ['187.50', 18750],
+  ['187', 18700],
+])('lerValor("%s") dá %i', (texto, esperado) => {
+  expect(lerValor(texto)).toBe(esperado);
 });
